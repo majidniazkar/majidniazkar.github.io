@@ -2,7 +2,7 @@
 title: My Resume
 description: A resume built with Jekyll
 baseurl: "" # the subpath of your site, e.g. /blog
-url: "https://majidniazkar.github.io" # the base hostname & protocol for your site
+url: "https://majidniazkar.io" # the base hostname & protocol for your site
 theme: jekyll-theme-primer
 
 # Build settings
