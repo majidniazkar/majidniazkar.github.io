@@ -1,0 +1,943 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="description" content="Majid Niazkar – Water Resources Researcher, Hydroinformatics, AI/ML for Climate & Water Quality" />
+  <title>Majid Niazkar – Water Resources Researcher</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&family=Inter:wght@300;400;500;600&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet" />
+  <style>
+    /* ── TOKENS ─────────────────────────────────────────────────────── */
+    :root {
+      --ink:        #0F1923;
+      --ink-mid:    #3A4A58;
+      --ink-light:  #6B7E8F;
+      --paper:      #F7F9FB;
+      --white:      #FFFFFF;
+      --teal:       #0B6E72;
+      --teal-light: #D6EEEF;
+      --accent:     #1A9DA4;
+      --rule:       #DDE4EA;
+      --serif:      'DM Serif Display', Georgia, serif;
+      --sans:       'Inter', system-ui, sans-serif;
+      --mono:       'JetBrains Mono', 'Courier New', monospace;
+      --r: 8px;
+    }
+
+    /* ── RESET ──────────────────────────────────────────────────────── */
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    html { scroll-behavior: smooth; }
+    body {
+      font-family: var(--sans);
+      background: var(--paper);
+      color: var(--ink);
+      line-height: 1.65;
+      font-size: 16px;
+      -webkit-font-smoothing: antialiased;
+    }
+    a { color: var(--accent); text-decoration: none; }
+    a:hover { text-decoration: underline; }
+    img { max-width: 100%; display: block; }
+
+    /* ── NAV ────────────────────────────────────────────────────────── */
+    nav {
+      position: fixed; top: 0; left: 0; right: 0; z-index: 100;
+      background: rgba(247,249,251,0.92);
+      backdrop-filter: blur(12px);
+      border-bottom: 1px solid var(--rule);
+      padding: 0 2rem;
+      height: 56px;
+      display: flex; align-items: center; justify-content: space-between;
+    }
+    .nav-brand {
+      font-family: var(--serif);
+      font-size: 1.1rem;
+      color: var(--ink);
+      letter-spacing: 0.01em;
+    }
+    .nav-links { display: flex; gap: 2rem; list-style: none; }
+    .nav-links a {
+      font-size: 0.82rem; font-weight: 500; letter-spacing: 0.05em;
+      text-transform: uppercase; color: var(--ink-mid);
+    }
+    .nav-links a:hover { color: var(--accent); text-decoration: none; }
+
+    /* ── HERO ───────────────────────────────────────────────────────── */
+    #hero {
+      min-height: 100vh;
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      padding-top: 56px;
+    }
+    .hero-left {
+      background: var(--ink);
+      display: flex; flex-direction: column; justify-content: center;
+      padding: 5rem 4rem 5rem 5rem;
+      position: relative; overflow: hidden;
+    }
+    .hero-left::before {
+      content: '';
+      position: absolute; bottom: -80px; right: -80px;
+      width: 360px; height: 360px;
+      border-radius: 50%;
+      background: radial-gradient(circle, rgba(11,110,114,0.35) 0%, transparent 70%);
+      pointer-events: none;
+    }
+    .hero-eyebrow {
+      font-family: var(--mono);
+      font-size: 0.72rem; letter-spacing: 0.14em;
+      text-transform: uppercase; color: var(--accent);
+      margin-bottom: 1.5rem;
+    }
+    .hero-name {
+      font-family: var(--serif);
+      font-size: clamp(2.6rem, 4vw, 4.2rem);
+      color: var(--white);
+      line-height: 1.08;
+      margin-bottom: 1.2rem;
+    }
+    .hero-title {
+      font-size: 1.05rem; font-weight: 300;
+      color: rgba(255,255,255,0.65);
+      line-height: 1.55;
+      max-width: 420px;
+      margin-bottom: 2.5rem;
+    }
+    .hero-links {
+      display: flex; flex-wrap: wrap; gap: 0.75rem;
+    }
+    .hero-link {
+      display: inline-flex; align-items: center; gap: 0.4rem;
+      font-family: var(--mono); font-size: 0.75rem; font-weight: 500;
+      color: var(--accent);
+      border: 1px solid rgba(26,157,164,0.4);
+      border-radius: 4px; padding: 0.45rem 0.85rem;
+      transition: all 0.2s;
+    }
+    .hero-link:hover {
+      background: rgba(26,157,164,0.12);
+      text-decoration: none; border-color: var(--accent);
+    }
+    .hero-right {
+      background: var(--white);
+      display: flex; flex-direction: column; justify-content: center; align-items: center;
+      padding: 4rem 3rem;
+      gap: 2rem;
+    }
+    .hero-photo {
+      width: 180px; height: 180px;
+      border-radius: 50%;
+      object-fit: cover;
+      border: 4px solid var(--teal-light);
+      box-shadow: 0 8px 32px rgba(11,110,114,0.15);
+    }
+    .hero-photo-placeholder {
+      width: 180px; height: 180px; border-radius: 50%;
+      background: var(--teal-light);
+      display: flex; align-items: center; justify-content: center;
+      font-family: var(--serif); font-size: 3rem; color: var(--teal);
+      border: 4px solid var(--teal-light);
+    }
+    .stat-grid {
+      display: grid; grid-template-columns: 1fr 1fr; gap: 1rem;
+      width: 100%; max-width: 340px;
+    }
+    .stat-card {
+      background: var(--paper);
+      border: 1px solid var(--rule);
+      border-radius: var(--r);
+      padding: 1.2rem;
+      text-align: center;
+    }
+    .stat-number {
+      font-family: var(--serif);
+      font-size: 2rem; color: var(--teal);
+      line-height: 1;
+      margin-bottom: 0.3rem;
+    }
+    .stat-label {
+      font-size: 0.72rem; font-weight: 500;
+      text-transform: uppercase; letter-spacing: 0.06em;
+      color: var(--ink-light);
+    }
+
+    /* ── SECTION SHARED ─────────────────────────────────────────────── */
+    section { padding: 5rem 0; }
+    .container { max-width: 1100px; margin: 0 auto; padding: 0 2rem; }
+    .section-label {
+      font-family: var(--mono); font-size: 0.72rem;
+      letter-spacing: 0.14em; text-transform: uppercase;
+      color: var(--accent); margin-bottom: 0.6rem;
+    }
+    .section-title {
+      font-family: var(--serif);
+      font-size: clamp(1.8rem, 3vw, 2.6rem);
+      color: var(--ink); line-height: 1.15;
+      margin-bottom: 2.5rem;
+    }
+
+    /* ── ABOUT ──────────────────────────────────────────────────────── */
+    #about { background: var(--white); }
+    .about-grid {
+      display: grid; grid-template-columns: 2fr 1fr; gap: 4rem;
+      align-items: start;
+    }
+    .about-body p {
+      color: var(--ink-mid); margin-bottom: 1.1rem;
+      font-size: 1.02rem; line-height: 1.75;
+    }
+    .skill-tags { display: flex; flex-wrap: wrap; gap: 0.5rem; margin-top: 1.5rem; }
+    .skill-tag {
+      font-family: var(--mono); font-size: 0.72rem;
+      background: var(--teal-light); color: var(--teal);
+      border-radius: 4px; padding: 0.3rem 0.7rem;
+      font-weight: 500;
+    }
+    .about-sidebar { display: flex; flex-direction: column; gap: 1rem; }
+    .info-card {
+      background: var(--paper);
+      border: 1px solid var(--rule); border-left: 3px solid var(--teal);
+      border-radius: var(--r); padding: 1.2rem 1.4rem;
+    }
+    .info-card-label {
+      font-family: var(--mono); font-size: 0.68rem;
+      letter-spacing: 0.1em; text-transform: uppercase;
+      color: var(--ink-light); margin-bottom: 0.35rem;
+    }
+    .info-card-value { font-weight: 500; color: var(--ink); font-size: 0.92rem; }
+
+    /* ── EXPERIENCE ─────────────────────────────────────────────────── */
+    #experience { background: var(--paper); }
+    .timeline { position: relative; }
+    .timeline::before {
+      content: ''; position: absolute; left: 0; top: 8px; bottom: 0;
+      width: 2px; background: var(--rule);
+    }
+    .timeline-item {
+      position: relative;
+      padding-left: 2.5rem;
+      margin-bottom: 2.8rem;
+    }
+    .timeline-item::before {
+      content: ''; position: absolute; left: -5px; top: 8px;
+      width: 12px; height: 12px; border-radius: 50%;
+      background: var(--white); border: 2.5px solid var(--teal);
+    }
+    .timeline-meta {
+      font-family: var(--mono); font-size: 0.72rem;
+      color: var(--accent); letter-spacing: 0.06em;
+      margin-bottom: 0.3rem;
+    }
+    .timeline-title { font-weight: 600; font-size: 1rem; color: var(--ink); }
+    .timeline-org { font-size: 0.88rem; color: var(--ink-light); margin-bottom: 0.7rem; }
+    .timeline-body { font-size: 0.9rem; color: var(--ink-mid); line-height: 1.65; }
+    .timeline-tags { display: flex; flex-wrap: wrap; gap: 0.4rem; margin-top: 0.6rem; }
+    .timeline-tag {
+      font-size: 0.68rem; font-weight: 500;
+      background: var(--teal-light); color: var(--teal);
+      border-radius: 3px; padding: 0.2rem 0.55rem;
+    }
+
+    /* ── EDUCATION ──────────────────────────────────────────────────── */
+    #education { background: var(--white); }
+    .edu-grid { display: grid; grid-template-columns: repeat(3,1fr); gap: 1.5rem; }
+    .edu-card {
+      border: 1px solid var(--rule); border-radius: var(--r);
+      padding: 1.8rem; background: var(--paper);
+      border-top: 3px solid var(--teal);
+    }
+    .edu-degree {
+      font-family: var(--serif); font-size: 1.1rem;
+      color: var(--ink); margin-bottom: 0.4rem;
+    }
+    .edu-field { font-size: 0.82rem; color: var(--teal); font-weight: 500; margin-bottom: 0.8rem; }
+    .edu-meta { font-size: 0.82rem; color: var(--ink-light); line-height: 1.6; }
+
+    /* ── RESEARCH ───────────────────────────────────────────────────── */
+    #research { background: var(--paper); }
+    .research-intro {
+      font-size: 1.02rem; color: var(--ink-mid);
+      line-height: 1.75; max-width: 720px; margin-bottom: 3rem;
+    }
+    .research-areas { display: grid; grid-template-columns: repeat(3,1fr); gap: 1.5rem; margin-bottom: 3rem; }
+    .research-card {
+      background: var(--white); border: 1px solid var(--rule);
+      border-radius: var(--r); padding: 1.8rem;
+      transition: box-shadow 0.2s, transform 0.2s;
+    }
+    .research-card:hover { box-shadow: 0 6px 24px rgba(11,110,114,0.1); transform: translateY(-2px); }
+    .research-icon {
+      font-size: 1.6rem; margin-bottom: 0.9rem;
+    }
+    .research-card-title {
+      font-weight: 600; font-size: 0.95rem;
+      color: var(--ink); margin-bottom: 0.5rem;
+    }
+    .research-card-body { font-size: 0.85rem; color: var(--ink-mid); line-height: 1.65; }
+
+    /* ── PUBLICATIONS ───────────────────────────────────────────────── */
+    #publications { background: var(--white); }
+    .pub-filter {
+      display: flex; gap: 0.6rem; flex-wrap: wrap;
+      margin-bottom: 2rem;
+    }
+    .pub-btn {
+      font-family: var(--mono); font-size: 0.72rem; font-weight: 500;
+      letter-spacing: 0.06em; text-transform: uppercase;
+      padding: 0.4rem 0.9rem; border-radius: 4px;
+      border: 1px solid var(--rule); background: var(--paper);
+      color: var(--ink-mid); cursor: pointer;
+      transition: all 0.15s;
+    }
+    .pub-btn.active, .pub-btn:hover {
+      background: var(--teal); color: var(--white); border-color: var(--teal);
+    }
+    .pub-list { display: flex; flex-direction: column; gap: 1.2rem; }
+    .pub-item {
+      background: var(--paper); border: 1px solid var(--rule);
+      border-radius: var(--r); padding: 1.4rem 1.6rem;
+      display: grid; grid-template-columns: auto 1fr; gap: 1.2rem;
+      align-items: start; transition: border-color 0.2s;
+    }
+    .pub-item:hover { border-color: var(--accent); }
+    .pub-year {
+      font-family: var(--mono); font-size: 0.75rem;
+      color: var(--accent); font-weight: 500;
+      white-space: nowrap; padding-top: 0.15rem;
+    }
+    .pub-title { font-weight: 500; font-size: 0.93rem; color: var(--ink); margin-bottom: 0.3rem; }
+    .pub-journal { font-size: 0.82rem; color: var(--ink-light); font-style: italic; margin-bottom: 0.4rem; }
+    .pub-authors { font-size: 0.8rem; color: var(--ink-light); }
+    .pub-badge {
+      display: inline-block; font-size: 0.65rem; font-weight: 600;
+      letter-spacing: 0.06em; text-transform: uppercase;
+      background: #FEF3C7; color: #92400E;
+      border-radius: 3px; padding: 0.15rem 0.5rem;
+      margin-left: 0.5rem; vertical-align: middle;
+    }
+    .hidden { display: none; }
+
+    /* ── EDITORIAL ──────────────────────────────────────────────────── */
+    #editorial { background: var(--paper); }
+    .editorial-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 2rem; }
+    .editorial-block h3 {
+      font-family: var(--serif); font-size: 1.3rem;
+      color: var(--ink); margin-bottom: 1.2rem;
+    }
+    .journal-list { list-style: none; display: flex; flex-direction: column; gap: 0.6rem; }
+    .journal-list li {
+      font-size: 0.88rem; color: var(--ink-mid);
+      padding: 0.6rem 0.9rem; background: var(--white);
+      border: 1px solid var(--rule); border-radius: 6px;
+      display: flex; align-items: center; gap: 0.6rem;
+    }
+    .journal-list li::before {
+      content: ''; width: 6px; height: 6px; border-radius: 50%;
+      background: var(--teal); flex-shrink: 0;
+    }
+
+    /* ── AWARDS ─────────────────────────────────────────────────────── */
+    #awards { background: var(--white); }
+    .awards-grid { display: grid; grid-template-columns: repeat(2,1fr); gap: 1rem; }
+    .award-item {
+      display: flex; gap: 1rem; align-items: flex-start;
+      padding: 1.2rem 1.4rem; background: var(--paper);
+      border: 1px solid var(--rule); border-radius: var(--r);
+    }
+    .award-icon { font-size: 1.3rem; flex-shrink: 0; margin-top: 0.1rem; }
+    .award-title { font-weight: 500; font-size: 0.9rem; color: var(--ink); margin-bottom: 0.2rem; }
+    .award-year { font-family: var(--mono); font-size: 0.72rem; color: var(--accent); }
+
+    /* ── CONTACT ────────────────────────────────────────────────────── */
+    #contact {
+      background: var(--ink);
+      padding: 5rem 0;
+    }
+    #contact .section-label { color: var(--accent); }
+    #contact .section-title { color: var(--white); }
+    .contact-sub {
+      color: rgba(255,255,255,0.55); font-size: 1rem;
+      margin-bottom: 2.5rem; max-width: 480px;
+    }
+    .contact-links { display: flex; flex-wrap: wrap; gap: 1rem; }
+    .contact-link {
+      display: inline-flex; align-items: center; gap: 0.5rem;
+      font-family: var(--mono); font-size: 0.8rem;
+      color: var(--white);
+      border: 1px solid rgba(255,255,255,0.2);
+      border-radius: 6px; padding: 0.7rem 1.2rem;
+      transition: all 0.2s;
+    }
+    .contact-link:hover {
+      background: var(--teal); border-color: var(--teal);
+      text-decoration: none;
+    }
+
+    /* ── FOOTER ─────────────────────────────────────────────────────── */
+    footer {
+      background: var(--ink);
+      border-top: 1px solid rgba(255,255,255,0.08);
+      padding: 1.5rem 2rem;
+      text-align: center;
+      font-size: 0.78rem; color: rgba(255,255,255,0.3);
+    }
+
+    /* ── RESPONSIVE ─────────────────────────────────────────────────── */
+    @media (max-width: 900px) {
+      #hero { grid-template-columns: 1fr; }
+      .hero-left { padding: 4rem 2rem; }
+      .hero-right { padding: 3rem 2rem; }
+      .about-grid { grid-template-columns: 1fr; }
+      .edu-grid { grid-template-columns: 1fr; }
+      .research-areas { grid-template-columns: 1fr 1fr; }
+      .editorial-grid { grid-template-columns: 1fr; }
+      .awards-grid { grid-template-columns: 1fr; }
+      .nav-links { display: none; }
+    }
+    @media (max-width: 600px) {
+      .research-areas { grid-template-columns: 1fr; }
+      .stat-grid { grid-template-columns: 1fr 1fr; }
+    }
+    @media (prefers-reduced-motion: reduce) {
+      * { transition: none !important; animation: none !important; }
+    }
+
+    /* ── SCROLL REVEAL ──────────────────────────────────────────────── */
+    .reveal {
+      opacity: 0; transform: translateY(24px);
+      transition: opacity 0.55s ease, transform 0.55s ease;
+    }
+    .reveal.visible { opacity: 1; transform: none; }
+  </style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav>
+  <span class="nav-brand">Majid Niazkar</span>
+  <ul class="nav-links">
+    <li><a href="#about">About</a></li>
+    <li><a href="#experience">Experience</a></li>
+    <li><a href="#research">Research</a></li>
+    <li><a href="#publications">Publications</a></li>
+    <li><a href="#editorial">Editorial</a></li>
+    <li><a href="#awards">Awards</a></li>
+    <li><a href="#contact">Contact</a></li>
+  </ul>
+</nav>
+
+<!-- HERO -->
+<section id="hero">
+  <div class="hero-left">
+    <p class="hero-eyebrow">Water Resources · Hydroinformatics · Climate Science</p>
+    <h1 class="hero-name">Majid<br>Niazkar</h1>
+    <p class="hero-title">
+      Researcher developing AI/ML and deep learning solutions for hydrology, water quality, and climate risk. Junior Scientist at CMCC, Venice.
+    </p>
+    <div class="hero-links">
+      <a class="hero-link" href="https://scholar.google.com/citations?user=j88TvigAAAAJ&hl=en" target="_blank" rel="noopener">
+        ↗ Google Scholar
+      </a>
+      <a class="hero-link" href="https://orcid.org/0000-0002-5022-1026" target="_blank" rel="noopener">
+        ↗ ORCID
+      </a>
+      <a class="hero-link" href="https://it.linkedin.com/in/majid-niazkar-5647b515a" target="_blank" rel="noopener">
+        ↗ LinkedIn
+      </a>
+      <a class="hero-link" href="mailto:majid.niazkar@cmcc.it">
+        ✉ Email
+      </a>
+    </div>
+  </div>
+  <div class="hero-right">
+    <img
+      class="hero-photo"
+      src="https://majidniazkar.github.io/assets/img/profile.jpg"
+      alt="Majid Niazkar"
+      onerror="this.outerHTML='<div class=\'hero-photo-placeholder\'>MN</div>'"
+    />
+    <div class="stat-grid">
+      <div class="stat-card">
+        <div class="stat-number">66+</div>
+        <div class="stat-label">Journal Articles</div>
+      </div>
+      <div class="stat-card">
+        <div class="stat-number">500+</div>
+        <div class="stat-label">Citations</div>
+      </div>
+      <div class="stat-card">
+        <div class="stat-number">Top 2%</div>
+        <div class="stat-label">Scientist Globally</div>
+      </div>
+      <div class="stat-card">
+        <div class="stat-number">480+</div>
+        <div class="stat-label">Peer Reviews</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ABOUT -->
+<section id="about">
+  <div class="container">
+    <p class="section-label">About</p>
+    <h2 class="section-title">Water Engineering meets Data Science</h2>
+    <div class="about-grid">
+      <div class="about-body reveal">
+        <p>
+          I am a water resources researcher and hydroinformatics scientist with over a decade of experience developing AI/ML and deep learning solutions for hydrological, water quality, and climate risk applications. My work sits at the intersection of data science and water engineering — combining machine learning, physically-based modelling, and remote sensing to understand and predict how freshwater systems behave under climate variability and human pressure.
+        </p>
+        <p>
+          Currently, I work as a Junior Scientist at the Euro-Mediterranean Center on Climate Change (CMCC) in Venice, where I contribute to multiple EU HORIZON-funded projects including CLIMAAX, ASPECT, TRANSCEND, and TALANOA-WATER. I also serve as Adjunct Professor at Ca' Foscari University of Venice.
+        </p>
+        <p>
+          I am passionate about problems where AI meets physical science — where the goal is not just accurate prediction but genuine understanding of complex environmental systems.
+        </p>
+        <div class="skill-tags">
+          <span class="skill-tag">Python</span>
+          <span class="skill-tag">PyTorch</span>
+          <span class="skill-tag">TensorFlow</span>
+          <span class="skill-tag">Graph Neural Networks</span>
+          <span class="skill-tag">XGBoost</span>
+          <span class="skill-tag">HYPE</span>
+          <span class="skill-tag">SWAT</span>
+          <span class="skill-tag">HEC-RAS</span>
+          <span class="skill-tag">Google Earth Engine</span>
+          <span class="skill-tag">CMIP6</span>
+          <span class="skill-tag">ERA5</span>
+          <span class="skill-tag">HPC/MPI</span>
+          <span class="skill-tag">QGIS</span>
+          <span class="skill-tag">R</span>
+          <span class="skill-tag">MATLAB</span>
+        </div>
+      </div>
+      <div class="about-sidebar reveal">
+        <div class="info-card">
+          <div class="info-card-label">Current Position</div>
+          <div class="info-card-value">Junior Scientist, CMCC Venice</div>
+        </div>
+        <div class="info-card">
+          <div class="info-card-label">Affiliation</div>
+          <div class="info-card-value">Adjunct Professor, Ca' Foscari University</div>
+        </div>
+        <div class="info-card">
+          <div class="info-card-label">Location</div>
+          <div class="info-card-value">Venice, Italy</div>
+        </div>
+        <div class="info-card">
+          <div class="info-card-label">Email</div>
+          <div class="info-card-value"><a href="mailto:majid.niazkar@cmcc.it">majid.niazkar@cmcc.it</a></div>
+        </div>
+        <div class="info-card">
+          <div class="info-card-label">h-index</div>
+          <div class="info-card-value">23 (Google Scholar)</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- EXPERIENCE -->
+<section id="experience">
+  <div class="container">
+    <p class="section-label">Career</p>
+    <h2 class="section-title">Experience</h2>
+    <div class="timeline">
+
+      <div class="timeline-item reveal">
+        <div class="timeline-meta">Apr 2024 – Present</div>
+        <div class="timeline-title">Junior Scientist – Risk Assessment & Adaptation Strategies</div>
+        <div class="timeline-org">Euro-Mediterranean Center on Climate Change (CMCC), Venice, Italy</div>
+        <div class="timeline-body">
+          Developing AI/ML and deep learning pipelines for water quality, hydro-climate risk, drought, and flood prediction. Building bias correction and uncertainty quantification workflows for CMIP6 projections. Engaging with regional water authorities to translate research into operational decision support.
+        </div>
+        <div class="timeline-tags">
+          <span class="timeline-tag">CLIMAAX</span>
+          <span class="timeline-tag">ASPECT</span>
+          <span class="timeline-tag">TRANSCEND</span>
+          <span class="timeline-tag">TALANOA-WATER</span>
+          <span class="timeline-tag">REACHOUT</span>
+          <span class="timeline-tag">EU HORIZON</span>
+        </div>
+      </div>
+
+      <div class="timeline-item reveal">
+        <div class="timeline-meta">Jan 2026 – Present</div>
+        <div class="timeline-title">Adjunct Professor</div>
+        <div class="timeline-org">Ca' Foscari University, Venice, Italy</div>
+        <div class="timeline-body">
+          Teaching Data Tools and Methods for Earth Sciences (MSc) and Data Analytics & Artificial Intelligence (Dept. Economics). Project-based lab sessions integrating Python with real-world Earth science datasets.
+        </div>
+      </div>
+
+      <div class="timeline-item reveal">
+        <div class="timeline-meta">Apr 2023 – Mar 2024</div>
+        <div class="timeline-title">Research Assistant – DIADEM Project</div>
+        <div class="timeline-org">Free University of Bozen-Bolzano, Italy</div>
+        <div class="timeline-body">
+          ML-based anomaly detection and short-term water demand forecasting for smart water and energy grids. Bias correction of ERA5-Land hydroclimatic reanalysis data.
+        </div>
+      </div>
+
+      <div class="timeline-item reveal">
+        <div class="timeline-meta">Apr 2022 – Mar 2023</div>
+        <div class="timeline-title">Postdoctoral Fellow (Type B)</div>
+        <div class="timeline-org">University of Milan, Italy — MONAlISa & QVirus Projects</div>
+        <div class="timeline-body">
+          Mathematical modelling of infiltration ponds and combined sewer overflow systems. Investigated first flush dynamics in agro-urban catchments. Evaluated nature-based solutions using SWMM and QGIS.
+        </div>
+      </div>
+
+      <div class="timeline-item reveal">
+        <div class="timeline-meta">Dec 2019 – Dec 2020</div>
+        <div class="timeline-title">Postdoctoral Researcher</div>
+        <div class="timeline-org">Shiraz University, Iran — Iran's National Elites Foundation</div>
+        <div class="timeline-body">
+          Led research on district metered area (DMA) design based on critical asset identification in water distribution networks.
+        </div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<!-- EDUCATION -->
+<section id="education">
+  <div class="container">
+    <p class="section-label">Academic Background</p>
+    <h2 class="section-title">Education</h2>
+    <div class="edu-grid">
+      <div class="edu-card reveal">
+        <div class="edu-degree">Doctor of Philosophy</div>
+        <div class="edu-field">Civil Engineering – Water Resources</div>
+        <div class="edu-meta">
+          Shiraz University, Iran<br>
+          2014 – 2019 · GPA 17.50/20<br>
+          <em>Top student in cohort</em><br><br>
+          Dissertation: Roughness Rating Curve Concept for Improved Flood Routing and Water-Sediment Simulation in Open Channels
+        </div>
+      </div>
+      <div class="edu-card reveal">
+        <div class="edu-degree">Master of Science</div>
+        <div class="edu-field">Civil Engineering – Hydraulic Structures</div>
+        <div class="edu-meta">
+          Shiraz University, Iran<br>
+          2012 – 2014 · GPA 17.52/20<br>
+          <em>Top student in cohort</em>
+        </div>
+      </div>
+      <div class="edu-card reveal">
+        <div class="edu-degree">Bachelor of Science</div>
+        <div class="edu-field">Civil Engineering</div>
+        <div class="edu-meta">
+          Shiraz University, Iran<br>
+          2008 – 2012 · GPA 16.47/20
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- RESEARCH -->
+<section id="research">
+  <div class="container">
+    <p class="section-label">Research Focus</p>
+    <h2 class="section-title">What I Work On</h2>
+    <p class="research-intro">
+      My research integrates AI/ML, physical modelling, and Earth observation to address water security challenges under climate change. I develop tools and models that work at the intersection of computation and environmental science.
+    </p>
+    <div class="research-areas">
+      <div class="research-card reveal">
+        <div class="research-icon">🌊</div>
+        <div class="research-card-title">Hydrological Modelling & Flood Risk</div>
+        <div class="research-card-body">Process-based and ML-hybrid models for streamflow, flood routing, and extreme event analysis. GEV and non-stationary frequency analysis under CMIP6 projections.</div>
+      </div>
+      <div class="research-card reveal">
+        <div class="research-icon">🧪</div>
+        <div class="research-card-title">Water Quality & Ecohydrology</div>
+        <div class="research-card-body">GNN-based water quality prediction integrating sensor and satellite data. First flush dynamics in urban catchments. Remote sensing for wetland and river water quality monitoring.</div>
+      </div>
+      <div class="research-card reveal">
+        <div class="research-icon">🤖</div>
+        <div class="research-card-title">AI/ML for Water Engineering</div>
+        <div class="research-card-body">XGBoost, LSTM, Graph Neural Networks, stacking ensembles for hydrological prediction. Lead author of a Highly Cited systematic review of XGBoost in water resources engineering.</div>
+      </div>
+      <div class="research-card reveal">
+        <div class="research-icon">🌡️</div>
+        <div class="research-card-title">Climate Risk Assessment</div>
+        <div class="research-card-body">Bias correction and uncertainty quantification of CMIP6 climate projections. Drought index calculation and trend analysis. Operational risk tools for regional water authorities.</div>
+      </div>
+      <div class="research-card reveal">
+        <div class="research-icon">🛰️</div>
+        <div class="research-card-title">Remote Sensing & Earth Observation</div>
+        <div class="research-card-body">Google Earth Engine pipelines for large-scale environmental monitoring. Satellite-based snow density estimation, soil moisture, and hydro-climate variable retrieval.</div>
+      </div>
+      <div class="research-card reveal">
+        <div class="research-icon">💧</div>
+        <div class="research-card-title">Water Supply & Distribution</div>
+        <div class="research-card-body">Water distribution network analysis, DMA design, anomaly detection and demand forecasting for smart water utilities. EPANET-based hydraulic modelling.</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- PUBLICATIONS -->
+<section id="publications">
+  <div class="container">
+    <p class="section-label">Selected Works</p>
+    <h2 class="section-title">Recent Publications</h2>
+    <div class="pub-filter">
+      <button class="pub-btn active" onclick="filterPubs('all', this)">All</button>
+      <button class="pub-btn" onclick="filterPubs('ml', this)">AI / ML</button>
+      <button class="pub-btn" onclick="filterPubs('wq', this)">Water Quality</button>
+      <button class="pub-btn" onclick="filterPubs('climate', this)">Climate</button>
+      <button class="pub-btn" onclick="filterPubs('hydro', this)">Hydrology</button>
+    </div>
+    <div class="pub-list">
+
+      <div class="pub-item reveal" data-cat="ml wq">
+        <div class="pub-year">2025</div>
+        <div>
+          <div class="pub-title">Enhancing estimation of water quality index using stacking machine learning techniques: The case of Southern Bug River</div>
+          <div class="pub-journal">Science of The Total Environment, 1003, 180744</div>
+          <div class="pub-authors">Niazkar, M. & Piraei, R.</div>
+        </div>
+      </div>
+
+      <div class="pub-item reveal" data-cat="ml climate">
+        <div class="pub-year">2025</div>
+        <div>
+          <div class="pub-title">Application of Machine Learning Models for Short-term Drought Analysis Based on Streamflow Drought Index</div>
+          <div class="pub-journal">Water Resources Management, 39(1), 91–108</div>
+          <div class="pub-authors">Niazkar, M., Piraei, R., & Zakwan, M.</div>
+        </div>
+      </div>
+
+      <div class="pub-item reveal" data-cat="ml climate wq">
+        <div class="pub-year">2025</div>
+        <div>
+          <div class="pub-title">Comparative Assessment of Machine Learning Models for Groundwater Quality Prediction Using Various Parameters</div>
+          <div class="pub-journal">Environmental Processes, 12(1), 10</div>
+          <div class="pub-authors">Niazkar, M., Piraei, R., Goodarzi, M.R., & Abedi, M.J.</div>
+        </div>
+      </div>
+
+      <div class="pub-item reveal" data-cat="ml climate">
+        <div class="pub-year">2024</div>
+        <div>
+          <div class="pub-title">
+            Applications of XGBoost in water resources engineering: A systematic literature review
+            <span class="pub-badge">Highly Cited</span>
+          </div>
+          <div class="pub-journal">Environmental Modelling & Software, 174, 105971</div>
+          <div class="pub-authors">Niazkar, M., Menapace, A., Brentan, B., Piraei, R., Dhawan, P., Jimenez, D., & Righetti, M.</div>
+        </div>
+      </div>
+
+      <div class="pub-item reveal" data-cat="climate ml">
+        <div class="pub-year">2024</div>
+        <div>
+          <div class="pub-title">Drought analysis using innovative trend analysis and machine learning models for Eastern Black Sea Basin</div>
+          <div class="pub-journal">Theoretical and Applied Climatology, 155(3), 1605–1624</div>
+          <div class="pub-authors">Niazkar, M., Piraei, R., Eryılmaz Türkkan, G., Hırca, T., Gangi, F., & Afzali, S.H.</div>
+        </div>
+      </div>
+
+      <div class="pub-item reveal" data-cat="climate ml">
+        <div class="pub-year">2024</div>
+        <div>
+          <div class="pub-title">A comprehensive comparison of bias correction methods in climate model simulations: application on ERA5-Land across different temporal resolutions</div>
+          <div class="pub-journal">Heliyon</div>
+          <div class="pub-authors">Dhawan, P., Dalla Torre, D., Niazkar, M. et al.</div>
+        </div>
+      </div>
+
+      <div class="pub-item reveal" data-cat="wq hydro">
+        <div class="pub-year">2024</div>
+        <div>
+          <div class="pub-title">Investigating First Flush Occurrence in Agro-Urban Environments in Northern Italy</div>
+          <div class="pub-journal">Water, 16(6), 891</div>
+          <div class="pub-authors">Niazkar, M., Evangelisti, M., Peruzzi, C., Galli, A., Maglionico, M., & Masseroni, D.</div>
+        </div>
+      </div>
+
+      <div class="pub-item reveal" data-cat="climate ml">
+        <div class="pub-year">2023</div>
+        <div>
+          <div class="pub-title">Bias correction of ERA5-Land temperature data using standalone and ensemble machine learning models: a case of northern Italy</div>
+          <div class="pub-journal">Journal of Water and Climate Change, 15(1), 271–283</div>
+          <div class="pub-authors">Niazkar, M., Piraei, R., Menapace, A., Dhawan, P. et al.</div>
+        </div>
+      </div>
+
+      <div class="pub-item reveal" data-cat="wq ml">
+        <div class="pub-year">2023</div>
+        <div>
+          <div class="pub-title">A Machine Learning-Based Framework for Water Quality Index Estimation in the Southern Bug River</div>
+          <div class="pub-journal">Water, 15(20), 3543</div>
+          <div class="pub-authors">Masood, A., Niazkar, M., Zakwan, M., & Piraei, R.</div>
+        </div>
+      </div>
+
+      <div class="pub-item reveal" data-cat="hydro">
+        <div class="pub-year">2019</div>
+        <div>
+          <div class="pub-title">One-dimensional hydraulic flow routing incorporating a variable grain roughness coefficient</div>
+          <div class="pub-journal">Water Resources Management, 33(13), 4599–4620</div>
+          <div class="pub-authors">Niazkar, M., Talebbeydokhti, N., & Afzali, S.H.</div>
+        </div>
+      </div>
+
+    </div>
+    <p style="margin-top:1.5rem; font-size:0.85rem; color:var(--ink-light);">
+      Full list of 66+ publications on <a href="https://scholar.google.com/citations?user=j88TvigAAAAJ&hl=en" target="_blank" rel="noopener">Google Scholar</a>.
+    </p>
+  </div>
+</section>
+
+<!-- EDITORIAL -->
+<section id="editorial">
+  <div class="container">
+    <p class="section-label">Scientific Community</p>
+    <h2 class="section-title">Editorial Activity</h2>
+    <div class="editorial-grid">
+      <div class="editorial-block reveal">
+        <h3>Editorial Board Member</h3>
+        <ul class="journal-list">
+          <li>Scientific Reports (Nature Portfolio)</li>
+          <li>PLOS ONE</li>
+          <li>Discover Civil Engineering</li>
+          <li>Discover Water</li>
+          <li>Discover Applied Sciences</li>
+          <li>Computer Applications in Engineering Education</li>
+          <li>Journal of Water Management Modeling</li>
+          <li>Informatics in Medicine Unlocked</li>
+        </ul>
+      </div>
+      <div class="editorial-block reveal">
+        <h3>Lead Guest Editor – Special Issues</h3>
+        <ul class="journal-list">
+          <li>J. Water & Climate Change — ML for Climate Change Impact on Water Resources</li>
+          <li>Discover Applied Sciences — Data-Driven Models for Water Resources</li>
+          <li>Water (MDPI) — Applications of XGBoost to Water Resource Problems</li>
+          <li>Hydrology — Runoff Modelling under Climate Change</li>
+        </ul>
+        <br>
+        <h3 style="margin-top:1.5rem">Peer Review</h3>
+        <ul class="journal-list">
+          <li>480+ manuscripts reviewed across top-tier journals</li>
+          <li>Outstanding Reviewer Award — Water (MDPI), 2022 & 2023</li>
+          <li>Top Reviewer in Hydrology & Hydraulics — Acta Geophysica, 2023</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- AWARDS -->
+<section id="awards">
+  <div class="container">
+    <p class="section-label">Recognition</p>
+    <h2 class="section-title">Awards & Distinctions</h2>
+    <div class="awards-grid">
+      <div class="award-item reveal">
+        <div class="award-icon">🏆</div>
+        <div>
+          <div class="award-title">World's Top 2% Scientist</div>
+          <div class="award-year">2020 · 2021 · 2024 — Elsevier / Stanford University</div>
+        </div>
+      </div>
+      <div class="award-item reveal">
+        <div class="award-icon">⭐</div>
+        <div>
+          <div class="award-title">Highly Cited Paper — Web of Science</div>
+          <div class="award-year">2024 — Environmental Modelling & Software</div>
+        </div>
+      </div>
+      <div class="award-item reveal">
+        <div class="award-icon">📝</div>
+        <div>
+          <div class="award-title">Outstanding Reviewer Award</div>
+          <div class="award-year">2022 & 2023 — Water (MDPI)</div>
+        </div>
+      </div>
+      <div class="award-item reveal">
+        <div class="award-icon">🔬</div>
+        <div>
+          <div class="award-title">Top Reviewer in Hydrology & Hydraulics</div>
+          <div class="award-year">2023 — Acta Geophysica</div>
+        </div>
+      </div>
+      <div class="award-item reveal">
+        <div class="award-icon">🎓</div>
+        <div>
+          <div class="award-title">First Top Student — PhD & MSc Cohorts</div>
+          <div class="award-year">Shiraz University, Iran</div>
+        </div>
+      </div>
+      <div class="award-item reveal">
+        <div class="award-icon">🏅</div>
+        <div>
+          <div class="award-title">National Elites Foundation Scholarships</div>
+          <div class="award-year">2017 (PhD) · 2019 (Postdoc) — Iran</div>
+        </div>
+      </div>
+      <div class="award-item reveal">
+        <div class="award-icon">📰</div>
+        <div>
+          <div class="award-title">Top Cited & Downloaded Papers</div>
+          <div class="award-year">2017–2021 — Computer Applications in Engineering Education</div>
+        </div>
+      </div>
+      <div class="award-item reveal">
+        <div class="award-icon">🏛️</div>
+        <div>
+          <div class="award-title">Behpour Engineer Award</div>
+          <div class="award-year">2016 — Shiraz University</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- CONTACT -->
+<section id="contact">
+  <div class="container">
+    <p class="section-label">Get in Touch</p>
+    <h2 class="section-title">Contact</h2>
+    <p class="contact-sub">Open to research collaborations, visiting fellowships, and academic opportunities worldwide.</p>
+    <div class="contact-links">
+      <a class="contact-link" href="mailto:majid.niazkar@cmcc.it">✉ majid.niazkar@cmcc.it</a>
+      <a class="contact-link" href="https://scholar.google.com/citations?user=j88TvigAAAAJ&hl=en" target="_blank" rel="noopener">↗ Google Scholar</a>
+      <a class="contact-link" href="https://orcid.org/0000-0002-5022-1026" target="_blank" rel="noopener">↗ ORCID</a>
+      <a class="contact-link" href="https://it.linkedin.com/in/majid-niazkar-5647b515a" target="_blank" rel="noopener">↗ LinkedIn</a>
+    </div>
+  </div>
+</section>
+
+<footer>
+  © 2026 Majid Niazkar · Venice, Italy · Built with GitHub Pages
+</footer>
+
+<script>
+  // ── Scroll reveal
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach(e => { if (e.isIntersecting) { e.target.classList.add('visible'); } });
+  }, { threshold: 0.1 });
+  document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
+
+  // ── Publication filter
+  function filterPubs(cat, btn) {
+    document.querySelectorAll('.pub-btn').forEach(b => b.classList.remove('active'));
+    btn.classList.add('active');
+    document.querySelectorAll('.pub-item').forEach(item => {
+      const cats = item.dataset.cat || '';
+      item.classList.toggle('hidden', cat !== 'all' && !cats.includes(cat));
+    });
+  }
+</script>
+
+</body>
+</html>
