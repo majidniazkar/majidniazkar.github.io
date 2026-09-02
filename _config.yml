@@ -1,10 +1,8 @@
 # _config.yml
-title: My Resume
-description: A resume built with Jekyll
-baseurl: "" # the subpath of your site, e.g. /blog
-url: "https://majidniazkar.io" # the base hostname & protocol for your site
-theme: jekyll-theme-primer
-
-# Build settings
-source: .
-destination: ./dist
+title: "Majid Niazkar"
+description: "Hydrology • Climate Extremes • Hydroinformatics"
+theme: jekyll-theme-minimal
+logo: /assets/profile.jpg
+show_downloads: false
+google_scholar: "https://scholar.google.com/citations?user=j88TvigAAAAJ&hl=en&oi=ao"
+orcid: "https://https://orcid.org/0000-0002-5022-1026"
