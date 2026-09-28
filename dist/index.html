@@ -46,6 +46,7 @@
       position: fixed; top: 0; left: 0; right: 0; z-index: 100;
       background: rgba(247,249,251,0.92);
       backdrop-filter: blur(12px);
+      -webkit-backdrop-filter: blur(12px); /* FIX: Safari support */
       border-bottom: 1px solid var(--rule);
       padding: 0 2rem;
       height: 56px;
@@ -63,6 +64,22 @@
       text-transform: uppercase; color: var(--ink-mid);
     }
     .nav-links a:hover { color: var(--accent); text-decoration: none; }
+
+    /* ── HAMBURGER (mobile) ─────────────────────────────────────────── */
+    /* FIX: mobile nav was hidden with no fallback */
+    .nav-toggle {
+      display: none;
+      flex-direction: column; justify-content: space-between;
+      width: 24px; height: 18px;
+      background: none; border: none; cursor: pointer; padding: 0;
+    }
+    .nav-toggle span {
+      display: block; height: 2px; background: var(--ink-mid); border-radius: 2px;
+      transition: transform 0.25s, opacity 0.25s;
+    }
+    .nav-toggle.open span:nth-child(1) { transform: translateY(8px) rotate(45deg); }
+    .nav-toggle.open span:nth-child(2) { opacity: 0; }
+    .nav-toggle.open span:nth-child(3) { transform: translateY(-8px) rotate(-45deg); }
 
     /* ── HERO ───────────────────────────────────────────────────────── */
     #hero {
@@ -133,12 +150,14 @@
       border: 4px solid var(--teal-light);
       box-shadow: 0 8px 32px rgba(11,110,114,0.15);
     }
+    /* FIX: placeholder now rendered via JS, no broken onerror inline escaping */
     .hero-photo-placeholder {
       width: 180px; height: 180px; border-radius: 50%;
       background: var(--teal-light);
       display: flex; align-items: center; justify-content: center;
       font-family: var(--serif); font-size: 3rem; color: var(--teal);
       border: 4px solid var(--teal-light);
+      flex-shrink: 0;
     }
     .stat-grid {
       display: grid; grid-template-columns: 1fr 1fr; gap: 1rem;
@@ -268,9 +287,7 @@
       transition: box-shadow 0.2s, transform 0.2s;
     }
     .research-card:hover { box-shadow: 0 6px 24px rgba(11,110,114,0.1); transform: translateY(-2px); }
-    .research-icon {
-      font-size: 1.6rem; margin-bottom: 0.9rem;
-    }
+    .research-icon { font-size: 1.6rem; margin-bottom: 0.9rem; }
     .research-card-title {
       font-weight: 600; font-size: 0.95rem;
       color: var(--ink); margin-bottom: 0.5rem;
@@ -317,7 +334,8 @@
       border-radius: 3px; padding: 0.15rem 0.5rem;
       margin-left: 0.5rem; vertical-align: middle;
     }
-    .hidden { display: none; }
+    /* FIX: use visibility + height collapse so reveal still works on filtered items */
+    .pub-item.hidden { display: none; }
 
     /* ── EDITORIAL ──────────────────────────────────────────────────── */
     #editorial { background: var(--paper); }
@@ -394,7 +412,18 @@
       .research-areas { grid-template-columns: 1fr 1fr; }
       .editorial-grid { grid-template-columns: 1fr; }
       .awards-grid { grid-template-columns: 1fr; }
-      .nav-links { display: none; }
+      /* FIX: show hamburger, hide horizontal nav links */
+      .nav-links {
+        display: none;
+        flex-direction: column;
+        position: absolute; top: 56px; left: 0; right: 0;
+        background: rgba(247,249,251,0.98);
+        border-bottom: 1px solid var(--rule);
+        padding: 1rem 2rem 1.5rem;
+        gap: 1rem;
+      }
+      .nav-links.open { display: flex; }
+      .nav-toggle { display: flex; }
     }
     @media (max-width: 600px) {
       .research-areas { grid-template-columns: 1fr; }
@@ -415,9 +444,9 @@
 <body>
 
 <!-- NAV -->
-<nav>
+<nav aria-label="Main navigation">
   <span class="nav-brand">Majid Niazkar</span>
-  <ul class="nav-links">
+  <ul class="nav-links" id="navLinks">
     <li><a href="#about">About</a></li>
     <li><a href="#experience">Experience</a></li>
     <li><a href="#research">Research</a></li>
@@ -426,10 +455,15 @@
     <li><a href="#awards">Awards</a></li>
     <li><a href="#contact">Contact</a></li>
   </ul>
+  <!-- FIX: hamburger menu for mobile -->
+  <button class="nav-toggle" id="navToggle" aria-label="Toggle navigation" aria-expanded="false">
+    <span></span><span></span><span></span>
+  </button>
 </nav>
 
 <!-- HERO -->
-<section id="hero">
+<!-- FIX: added aria-label for accessibility landmark -->
+<section id="hero" aria-label="Introduction">
   <div class="hero-left">
     <p class="hero-eyebrow">Water Resources · Hydroinformatics · Climate Science</p>
     <h1 class="hero-name">Majid<br>Niazkar</h1>
@@ -437,13 +471,13 @@
       Researcher developing AI/ML and deep learning solutions for hydrology, water quality, and climate risk. Junior Scientist at CMCC, Venice.
     </p>
     <div class="hero-links">
-      <a class="hero-link" href="https://scholar.google.com/citations?user=j88TvigAAAAJ&hl=en" target="_blank" rel="noopener">
+      <a class="hero-link" href="https://scholar.google.com/citations?user=j88TvigAAAAJ&hl=en" target="_blank" rel="noopener noreferrer">
         ↗ Google Scholar
       </a>
-      <a class="hero-link" href="https://orcid.org/0000-0002-5022-1026" target="_blank" rel="noopener">
+      <a class="hero-link" href="https://orcid.org/0000-0002-5022-1026" target="_blank" rel="noopener noreferrer">
         ↗ ORCID
       </a>
-      <a class="hero-link" href="https://it.linkedin.com/in/majid-niazkar-5647b515a" target="_blank" rel="noopener">
+      <a class="hero-link" href="https://it.linkedin.com/in/majid-niazkar-5647b515a" target="_blank" rel="noopener noreferrer">
         ↗ LinkedIn
       </a>
       <a class="hero-link" href="mailto:majid.niazkar@cmcc.it">
@@ -452,13 +486,15 @@
     </div>
   </div>
   <div class="hero-right">
+    <!-- FIX: image fallback handled cleanly in JS, no broken onerror inline attribute -->
     <img
       class="hero-photo"
+      id="heroPhoto"
       src="https://majidniazkar.github.io/assets/img/profile.jpg"
       alt="Majid Niazkar"
-      onerror="this.outerHTML='<div class=\'hero-photo-placeholder\'>MN</div>'"
     />
-    <div class="stat-grid">
+    <!-- FIX: stat cards now get .reveal class so they animate in -->
+    <div class="stat-grid reveal">
       <div class="stat-card">
         <div class="stat-number">66+</div>
         <div class="stat-label">Journal Articles</div>
@@ -548,7 +584,7 @@
 
       <div class="timeline-item reveal">
         <div class="timeline-meta">Apr 2024 – Present</div>
-        <div class="timeline-title">Junior Scientist – Risk Assessment & Adaptation Strategies</div>
+        <div class="timeline-title">Junior Scientist – Risk Assessment &amp; Adaptation Strategies</div>
         <div class="timeline-org">Euro-Mediterranean Center on Climate Change (CMCC), Venice, Italy</div>
         <div class="timeline-body">
           Developing AI/ML and deep learning pipelines for water quality, hydro-climate risk, drought, and flood prediction. Building bias correction and uncertainty quantification workflows for CMIP6 projections. Engaging with regional water authorities to translate research into operational decision support.
@@ -568,7 +604,7 @@
         <div class="timeline-title">Adjunct Professor</div>
         <div class="timeline-org">Ca' Foscari University, Venice, Italy</div>
         <div class="timeline-body">
-          Teaching Data Tools and Methods for Earth Sciences (MSc) and Data Analytics & Artificial Intelligence (Dept. Economics). Project-based lab sessions integrating Python with real-world Earth science datasets.
+          Teaching Data Tools and Methods for Earth Sciences (MSc) and Data Analytics &amp; Artificial Intelligence (Dept. Economics). Project-based lab sessions integrating Python with real-world Earth science datasets.
         </div>
       </div>
 
@@ -584,7 +620,7 @@
       <div class="timeline-item reveal">
         <div class="timeline-meta">Apr 2022 – Mar 2023</div>
         <div class="timeline-title">Postdoctoral Fellow (Type B)</div>
-        <div class="timeline-org">University of Milan, Italy — MONAlISa & QVirus Projects</div>
+        <div class="timeline-org">University of Milan, Italy — MONAlISa &amp; QVirus Projects</div>
         <div class="timeline-body">
           Mathematical modelling of infiltration ponds and combined sewer overflow systems. Investigated first flush dynamics in agro-urban catchments. Evaluated nature-based solutions using SWMM and QGIS.
         </div>
@@ -651,12 +687,12 @@
     <div class="research-areas">
       <div class="research-card reveal">
         <div class="research-icon">🌊</div>
-        <div class="research-card-title">Hydrological Modelling & Flood Risk</div>
+        <div class="research-card-title">Hydrological Modelling &amp; Flood Risk</div>
         <div class="research-card-body">Process-based and ML-hybrid models for streamflow, flood routing, and extreme event analysis. GEV and non-stationary frequency analysis under CMIP6 projections.</div>
       </div>
       <div class="research-card reveal">
         <div class="research-icon">🧪</div>
-        <div class="research-card-title">Water Quality & Ecohydrology</div>
+        <div class="research-card-title">Water Quality &amp; Ecohydrology</div>
         <div class="research-card-body">GNN-based water quality prediction integrating sensor and satellite data. First flush dynamics in urban catchments. Remote sensing for wetland and river water quality monitoring.</div>
       </div>
       <div class="research-card reveal">
@@ -671,12 +707,12 @@
       </div>
       <div class="research-card reveal">
         <div class="research-icon">🛰️</div>
-        <div class="research-card-title">Remote Sensing & Earth Observation</div>
+        <div class="research-card-title">Remote Sensing &amp; Earth Observation</div>
         <div class="research-card-body">Google Earth Engine pipelines for large-scale environmental monitoring. Satellite-based snow density estimation, soil moisture, and hydro-climate variable retrieval.</div>
       </div>
       <div class="research-card reveal">
         <div class="research-icon">💧</div>
-        <div class="research-card-title">Water Supply & Distribution</div>
+        <div class="research-card-title">Water Supply &amp; Distribution</div>
         <div class="research-card-body">Water distribution network analysis, DMA design, anomaly detection and demand forecasting for smart water utilities. EPANET-based hydraulic modelling.</div>
       </div>
     </div>
@@ -688,12 +724,13 @@
   <div class="container">
     <p class="section-label">Selected Works</p>
     <h2 class="section-title">Recent Publications</h2>
-    <div class="pub-filter">
-      <button class="pub-btn active" onclick="filterPubs('all', this)">All</button>
-      <button class="pub-btn" onclick="filterPubs('ml', this)">AI / ML</button>
-      <button class="pub-btn" onclick="filterPubs('wq', this)">Water Quality</button>
-      <button class="pub-btn" onclick="filterPubs('climate', this)">Climate</button>
-      <button class="pub-btn" onclick="filterPubs('hydro', this)">Hydrology</button>
+    <div class="pub-filter" role="group" aria-label="Filter publications">
+      <!-- FIX: buttons now use data-filter attribute; JS attached via addEventListener -->
+      <button class="pub-btn active" data-filter="all">All</button>
+      <button class="pub-btn" data-filter="ml">AI / ML</button>
+      <button class="pub-btn" data-filter="wq">Water Quality</button>
+      <button class="pub-btn" data-filter="climate">Climate</button>
+      <button class="pub-btn" data-filter="hydro">Hydrology</button>
     </div>
     <div class="pub-list">
 
@@ -702,7 +739,7 @@
         <div>
           <div class="pub-title">Enhancing estimation of water quality index using stacking machine learning techniques: The case of Southern Bug River</div>
           <div class="pub-journal">Science of The Total Environment, 1003, 180744</div>
-          <div class="pub-authors">Niazkar, M. & Piraei, R.</div>
+          <div class="pub-authors">Niazkar, M. &amp; Piraei, R.</div>
         </div>
       </div>
 
@@ -711,7 +748,7 @@
         <div>
           <div class="pub-title">Application of Machine Learning Models for Short-term Drought Analysis Based on Streamflow Drought Index</div>
           <div class="pub-journal">Water Resources Management, 39(1), 91–108</div>
-          <div class="pub-authors">Niazkar, M., Piraei, R., & Zakwan, M.</div>
+          <div class="pub-authors">Niazkar, M., Piraei, R., &amp; Zakwan, M.</div>
         </div>
       </div>
 
@@ -720,7 +757,7 @@
         <div>
           <div class="pub-title">Comparative Assessment of Machine Learning Models for Groundwater Quality Prediction Using Various Parameters</div>
           <div class="pub-journal">Environmental Processes, 12(1), 10</div>
-          <div class="pub-authors">Niazkar, M., Piraei, R., Goodarzi, M.R., & Abedi, M.J.</div>
+          <div class="pub-authors">Niazkar, M., Piraei, R., Goodarzi, M.R., &amp; Abedi, M.J.</div>
         </div>
       </div>
 
@@ -731,8 +768,8 @@
             Applications of XGBoost in water resources engineering: A systematic literature review
             <span class="pub-badge">Highly Cited</span>
           </div>
-          <div class="pub-journal">Environmental Modelling & Software, 174, 105971</div>
-          <div class="pub-authors">Niazkar, M., Menapace, A., Brentan, B., Piraei, R., Dhawan, P., Jimenez, D., & Righetti, M.</div>
+          <div class="pub-journal">Environmental Modelling &amp; Software, 174, 105971</div>
+          <div class="pub-authors">Niazkar, M., Menapace, A., Brentan, B., Piraei, R., Dhawan, P., Jimenez, D., &amp; Righetti, M.</div>
         </div>
       </div>
 
@@ -741,7 +778,7 @@
         <div>
           <div class="pub-title">Drought analysis using innovative trend analysis and machine learning models for Eastern Black Sea Basin</div>
           <div class="pub-journal">Theoretical and Applied Climatology, 155(3), 1605–1624</div>
-          <div class="pub-authors">Niazkar, M., Piraei, R., Eryılmaz Türkkan, G., Hırca, T., Gangi, F., & Afzali, S.H.</div>
+          <div class="pub-authors">Niazkar, M., Piraei, R., Eryılmaz Türkkan, G., Hırca, T., Gangi, F., &amp; Afzali, S.H.</div>
         </div>
       </div>
 
@@ -759,7 +796,7 @@
         <div>
           <div class="pub-title">Investigating First Flush Occurrence in Agro-Urban Environments in Northern Italy</div>
           <div class="pub-journal">Water, 16(6), 891</div>
-          <div class="pub-authors">Niazkar, M., Evangelisti, M., Peruzzi, C., Galli, A., Maglionico, M., & Masseroni, D.</div>
+          <div class="pub-authors">Niazkar, M., Evangelisti, M., Peruzzi, C., Galli, A., Maglionico, M., &amp; Masseroni, D.</div>
         </div>
       </div>
 
@@ -777,7 +814,7 @@
         <div>
           <div class="pub-title">A Machine Learning-Based Framework for Water Quality Index Estimation in the Southern Bug River</div>
           <div class="pub-journal">Water, 15(20), 3543</div>
-          <div class="pub-authors">Masood, A., Niazkar, M., Zakwan, M., & Piraei, R.</div>
+          <div class="pub-authors">Masood, A., Niazkar, M., Zakwan, M., &amp; Piraei, R.</div>
         </div>
       </div>
 
@@ -786,13 +823,13 @@
         <div>
           <div class="pub-title">One-dimensional hydraulic flow routing incorporating a variable grain roughness coefficient</div>
           <div class="pub-journal">Water Resources Management, 33(13), 4599–4620</div>
-          <div class="pub-authors">Niazkar, M., Talebbeydokhti, N., & Afzali, S.H.</div>
+          <div class="pub-authors">Niazkar, M., Talebbeydokhti, N., &amp; Afzali, S.H.</div>
         </div>
       </div>
 
     </div>
     <p style="margin-top:1.5rem; font-size:0.85rem; color:var(--ink-light);">
-      Full list of 66+ publications on <a href="https://scholar.google.com/citations?user=j88TvigAAAAJ&hl=en" target="_blank" rel="noopener">Google Scholar</a>.
+      Full list of 66+ publications on <a href="https://scholar.google.com/citations?user=j88TvigAAAAJ&hl=en" target="_blank" rel="noopener noreferrer">Google Scholar</a>.
     </p>
   </div>
 </section>
@@ -819,7 +856,7 @@
       <div class="editorial-block reveal">
         <h3>Lead Guest Editor – Special Issues</h3>
         <ul class="journal-list">
-          <li>J. Water & Climate Change — ML for Climate Change Impact on Water Resources</li>
+          <li>J. Water &amp; Climate Change — ML for Climate Change Impact on Water Resources</li>
           <li>Discover Applied Sciences — Data-Driven Models for Water Resources</li>
           <li>Water (MDPI) — Applications of XGBoost to Water Resource Problems</li>
           <li>Hydrology — Runoff Modelling under Climate Change</li>
@@ -828,8 +865,8 @@
         <h3 style="margin-top:1.5rem">Peer Review</h3>
         <ul class="journal-list">
           <li>480+ manuscripts reviewed across top-tier journals</li>
-          <li>Outstanding Reviewer Award — Water (MDPI), 2022 & 2023</li>
-          <li>Top Reviewer in Hydrology & Hydraulics — Acta Geophysica, 2023</li>
+          <li>Outstanding Reviewer Award — Water (MDPI), 2022 &amp; 2023</li>
+          <li>Top Reviewer in Hydrology &amp; Hydraulics — Acta Geophysica, 2023</li>
         </ul>
       </div>
     </div>
@@ -840,7 +877,7 @@
 <section id="awards">
   <div class="container">
     <p class="section-label">Recognition</p>
-    <h2 class="section-title">Awards & Distinctions</h2>
+    <h2 class="section-title">Awards &amp; Distinctions</h2>
     <div class="awards-grid">
       <div class="award-item reveal">
         <div class="award-icon">🏆</div>
@@ -853,27 +890,27 @@
         <div class="award-icon">⭐</div>
         <div>
           <div class="award-title">Highly Cited Paper — Web of Science</div>
-          <div class="award-year">2024 — Environmental Modelling & Software</div>
+          <div class="award-year">2024 — Environmental Modelling &amp; Software</div>
         </div>
       </div>
       <div class="award-item reveal">
         <div class="award-icon">📝</div>
         <div>
           <div class="award-title">Outstanding Reviewer Award</div>
-          <div class="award-year">2022 & 2023 — Water (MDPI)</div>
+          <div class="award-year">2022 &amp; 2023 — Water (MDPI)</div>
         </div>
       </div>
       <div class="award-item reveal">
         <div class="award-icon">🔬</div>
         <div>
-          <div class="award-title">Top Reviewer in Hydrology & Hydraulics</div>
+          <div class="award-title">Top Reviewer in Hydrology &amp; Hydraulics</div>
           <div class="award-year">2023 — Acta Geophysica</div>
         </div>
       </div>
       <div class="award-item reveal">
         <div class="award-icon">🎓</div>
         <div>
-          <div class="award-title">First Top Student — PhD & MSc Cohorts</div>
+          <div class="award-title">First Top Student — PhD &amp; MSc Cohorts</div>
           <div class="award-year">Shiraz University, Iran</div>
         </div>
       </div>
@@ -887,7 +924,7 @@
       <div class="award-item reveal">
         <div class="award-icon">📰</div>
         <div>
-          <div class="award-title">Top Cited & Downloaded Papers</div>
+          <div class="award-title">Top Cited &amp; Downloaded Papers</div>
           <div class="award-year">2017–2021 — Computer Applications in Engineering Education</div>
         </div>
       </div>
@@ -910,33 +947,98 @@
     <p class="contact-sub">Open to research collaborations, visiting fellowships, and academic opportunities worldwide.</p>
     <div class="contact-links">
       <a class="contact-link" href="mailto:majid.niazkar@cmcc.it">✉ majid.niazkar@cmcc.it</a>
-      <a class="contact-link" href="https://scholar.google.com/citations?user=j88TvigAAAAJ&hl=en" target="_blank" rel="noopener">↗ Google Scholar</a>
-      <a class="contact-link" href="https://orcid.org/0000-0002-5022-1026" target="_blank" rel="noopener">↗ ORCID</a>
-      <a class="contact-link" href="https://it.linkedin.com/in/majid-niazkar-5647b515a" target="_blank" rel="noopener">↗ LinkedIn</a>
+      <a class="contact-link" href="https://scholar.google.com/citations?user=j88TvigAAAAJ&hl=en" target="_blank" rel="noopener noreferrer">↗ Google Scholar</a>
+      <a class="contact-link" href="https://orcid.org/0000-0002-5022-1026" target="_blank" rel="noopener noreferrer">↗ ORCID</a>
+      <a class="contact-link" href="https://it.linkedin.com/in/majid-niazkar-5647b515a" target="_blank" rel="noopener noreferrer">↗ LinkedIn</a>
     </div>
   </div>
 </section>
 
+<!-- FIX: footer year is now dynamic -->
 <footer>
-  © 2026 Majid Niazkar · Venice, Italy · Built with GitHub Pages
+  © <span id="footerYear"></span> Majid Niazkar · Venice, Italy · Built with GitHub Pages
 </footer>
 
 <script>
-  // ── Scroll reveal
-  const observer = new IntersectionObserver((entries) => {
-    entries.forEach(e => { if (e.isIntersecting) { e.target.classList.add('visible'); } });
-  }, { threshold: 0.1 });
-  document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
+  document.addEventListener('DOMContentLoaded', function () {
 
-  // ── Publication filter
-  function filterPubs(cat, btn) {
-    document.querySelectorAll('.pub-btn').forEach(b => b.classList.remove('active'));
-    btn.classList.add('active');
-    document.querySelectorAll('.pub-item').forEach(item => {
-      const cats = item.dataset.cat || '';
-      item.classList.toggle('hidden', cat !== 'all' && !cats.includes(cat));
+    // ── FIX: Dynamic footer year
+    document.getElementById('footerYear').textContent = new Date().getFullYear();
+
+    // ── FIX: Hero image fallback — safe JS approach, no broken inline onerror
+    var heroPhoto = document.getElementById('heroPhoto');
+    if (heroPhoto) {
+      heroPhoto.addEventListener('error', function () {
+        var placeholder = document.createElement('div');
+        placeholder.className = 'hero-photo-placeholder';
+        placeholder.textContent = 'MN';
+        heroPhoto.parentNode.replaceChild(placeholder, heroPhoto);
+      });
+    }
+
+    // ── FIX: Hamburger toggle for mobile
+    var navToggle = document.getElementById('navToggle');
+    var navLinks  = document.getElementById('navLinks');
+    if (navToggle && navLinks) {
+      navToggle.addEventListener('click', function () {
+        var isOpen = navLinks.classList.toggle('open');
+        navToggle.classList.toggle('open', isOpen);
+        navToggle.setAttribute('aria-expanded', isOpen ? 'true' : 'false');
+      });
+      // Close nav when a link is clicked (mobile UX)
+      navLinks.querySelectorAll('a').forEach(function (link) {
+        link.addEventListener('click', function () {
+          navLinks.classList.remove('open');
+          navToggle.classList.remove('open');
+          navToggle.setAttribute('aria-expanded', 'false');
+        });
+      });
+    }
+
+    // ── FIX: Smooth scroll JS fallback for Safari
+    document.querySelectorAll('a[href^="#"]').forEach(function (anchor) {
+      anchor.addEventListener('click', function (e) {
+        var target = document.querySelector(this.getAttribute('href'));
+        if (target) {
+          e.preventDefault();
+          target.scrollIntoView({ behavior: 'smooth', block: 'start' });
+        }
+      });
     });
-  }
+
+    // ── Scroll reveal
+    var observer = new IntersectionObserver(function (entries) {
+      entries.forEach(function (e) {
+        if (e.isIntersecting) {
+          e.target.classList.add('visible');
+        }
+      });
+    }, { threshold: 0.1 });
+    document.querySelectorAll('.reveal').forEach(function (el) {
+      observer.observe(el);
+    });
+
+    // ── FIX: Publication filter — attached via addEventListener, not inline onclick
+    //    Also fixed substring match bug with word-boundary check
+    var pubBtns = document.querySelectorAll('.pub-btn');
+    pubBtns.forEach(function (btn) {
+      btn.addEventListener('click', function () {
+        var filter = this.dataset.filter;
+        pubBtns.forEach(function (b) { b.classList.remove('active'); });
+        this.classList.add('active');
+        document.querySelectorAll('.pub-item').forEach(function (item) {
+          if (filter === 'all') {
+            item.classList.remove('hidden');
+          } else {
+            // FIX: split on spaces to avoid partial substring match (e.g. "ml" inside "html")
+            var cats = (item.dataset.cat || '').split(/\s+/);
+            item.classList.toggle('hidden', !cats.includes(filter));
+          }
+        });
+      });
+    });
+
+  });
 </script>
 
 </body>
