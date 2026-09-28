@@ -46,7 +46,7 @@
       position: fixed; top: 0; left: 0; right: 0; z-index: 100;
       background: rgba(247,249,251,0.92);
       backdrop-filter: blur(12px);
-      -webkit-backdrop-filter: blur(12px); /* FIX: Safari support */
+      -webkit-backdrop-filter: blur(12px);
       border-bottom: 1px solid var(--rule);
       padding: 0 2rem;
       height: 56px;
@@ -65,8 +65,7 @@
     }
     .nav-links a:hover { color: var(--accent); text-decoration: none; }
 
-    /* ── HAMBURGER (mobile) ─────────────────────────────────────────── */
-    /* FIX: mobile nav was hidden with no fallback */
+    /* ── HAMBURGER ──────────────────────────────────────────────────── */
     .nav-toggle {
       display: none;
       flex-direction: column; justify-content: space-between;
@@ -122,9 +121,7 @@
       max-width: 420px;
       margin-bottom: 2.5rem;
     }
-    .hero-links {
-      display: flex; flex-wrap: wrap; gap: 0.75rem;
-    }
+    .hero-links { display: flex; flex-wrap: wrap; gap: 0.75rem; }
     .hero-link {
       display: inline-flex; align-items: center; gap: 0.4rem;
       font-family: var(--mono); font-size: 0.75rem; font-weight: 500;
@@ -150,7 +147,6 @@
       border: 4px solid var(--teal-light);
       box-shadow: 0 8px 32px rgba(11,110,114,0.15);
     }
-    /* FIX: placeholder now rendered via JS, no broken onerror inline escaping */
     .hero-photo-placeholder {
       width: 180px; height: 180px; border-radius: 50%;
       background: var(--teal-light);
@@ -296,10 +292,7 @@
 
     /* ── PUBLICATIONS ───────────────────────────────────────────────── */
     #publications { background: var(--white); }
-    .pub-filter {
-      display: flex; gap: 0.6rem; flex-wrap: wrap;
-      margin-bottom: 2rem;
-    }
+    .pub-filter { display: flex; gap: 0.6rem; flex-wrap: wrap; margin-bottom: 2rem; }
     .pub-btn {
       font-family: var(--mono); font-size: 0.72rem; font-weight: 500;
       letter-spacing: 0.06em; text-transform: uppercase;
@@ -334,7 +327,6 @@
       border-radius: 3px; padding: 0.15rem 0.5rem;
       margin-left: 0.5rem; vertical-align: middle;
     }
-    /* FIX: use visibility + height collapse so reveal still works on filtered items */
     .pub-item.hidden { display: none; }
 
     /* ── EDITORIAL ──────────────────────────────────────────────────── */
@@ -369,10 +361,7 @@
     .award-year { font-family: var(--mono); font-size: 0.72rem; color: var(--accent); }
 
     /* ── CONTACT ────────────────────────────────────────────────────── */
-    #contact {
-      background: var(--ink);
-      padding: 5rem 0;
-    }
+    #contact { background: var(--ink); padding: 5rem 0; }
     #contact .section-label { color: var(--accent); }
     #contact .section-title { color: var(--white); }
     .contact-sub {
@@ -412,7 +401,6 @@
       .research-areas { grid-template-columns: 1fr 1fr; }
       .editorial-grid { grid-template-columns: 1fr; }
       .awards-grid { grid-template-columns: 1fr; }
-      /* FIX: show hamburger, hide horizontal nav links */
       .nav-links {
         display: none;
         flex-direction: column;
@@ -455,14 +443,12 @@
     <li><a href="#awards">Awards</a></li>
     <li><a href="#contact">Contact</a></li>
   </ul>
-  <!-- FIX: hamburger menu for mobile -->
   <button class="nav-toggle" id="navToggle" aria-label="Toggle navigation" aria-expanded="false">
     <span></span><span></span><span></span>
   </button>
 </nav>
 
 <!-- HERO -->
-<!-- FIX: added aria-label for accessibility landmark -->
 <section id="hero" aria-label="Introduction">
   <div class="hero-left">
     <p class="hero-eyebrow">Water Resources · Hydroinformatics · Climate Science</p>
@@ -471,29 +457,19 @@
       Researcher developing AI/ML and deep learning solutions for hydrology, water quality, and climate risk. Junior Scientist at CMCC, Venice.
     </p>
     <div class="hero-links">
-      <a class="hero-link" href="https://scholar.google.com/citations?user=j88TvigAAAAJ&hl=en" target="_blank" rel="noopener noreferrer">
-        ↗ Google Scholar
-      </a>
-      <a class="hero-link" href="https://orcid.org/0000-0002-5022-1026" target="_blank" rel="noopener noreferrer">
-        ↗ ORCID
-      </a>
-      <a class="hero-link" href="https://it.linkedin.com/in/majid-niazkar-5647b515a" target="_blank" rel="noopener noreferrer">
-        ↗ LinkedIn
-      </a>
-      <a class="hero-link" href="mailto:majid.niazkar@cmcc.it">
-        ✉ Email
-      </a>
+      <a class="hero-link" href="https://scholar.google.com/citations?user=j88TvigAAAAJ&hl=en" target="_blank" rel="noopener noreferrer">↗ Google Scholar</a>
+      <a class="hero-link" href="https://orcid.org/0000-0002-5022-1026" target="_blank" rel="noopener noreferrer">↗ ORCID</a>
+      <a class="hero-link" href="https://it.linkedin.com/in/majid-niazkar-5647b515a" target="_blank" rel="noopener noreferrer">↗ LinkedIn</a>
+      <a class="hero-link" href="mailto:majid.niazkar@cmcc.it">✉ Email</a>
     </div>
   </div>
   <div class="hero-right">
-    <!-- FIX: image fallback handled cleanly in JS, no broken onerror inline attribute -->
     <img
       class="hero-photo"
       id="heroPhoto"
       src="https://majidniazkar.github.io/assets/img/profile.jpg"
       alt="Majid Niazkar"
     />
-    <!-- FIX: stat cards now get .reveal class so they animate in -->
     <div class="stat-grid reveal">
       <div class="stat-card">
         <div class="stat-number">66+</div>
@@ -725,7 +701,6 @@
     <p class="section-label">Selected Works</p>
     <h2 class="section-title">Recent Publications</h2>
     <div class="pub-filter" role="group" aria-label="Filter publications">
-      <!-- FIX: buttons now use data-filter attribute; JS attached via addEventListener -->
       <button class="pub-btn active" data-filter="all">All</button>
       <button class="pub-btn" data-filter="ml">AI / ML</button>
       <button class="pub-btn" data-filter="wq">Water Quality</button>
@@ -764,10 +739,7 @@
       <div class="pub-item reveal" data-cat="ml climate">
         <div class="pub-year">2024</div>
         <div>
-          <div class="pub-title">
-            Applications of XGBoost in water resources engineering: A systematic literature review
-            <span class="pub-badge">Highly Cited</span>
-          </div>
+          <div class="pub-title">Applications of XGBoost in water resources engineering: A systematic literature review <span class="pub-badge">Highly Cited</span></div>
           <div class="pub-journal">Environmental Modelling &amp; Software, 174, 105971</div>
           <div class="pub-authors">Niazkar, M., Menapace, A., Brentan, B., Piraei, R., Dhawan, P., Jimenez, D., &amp; Righetti, M.</div>
         </div>
@@ -954,7 +926,6 @@
   </div>
 </section>
 
-<!-- FIX: footer year is now dynamic -->
 <footer>
   © <span id="footerYear"></span> Majid Niazkar · Venice, Italy · Built with GitHub Pages
 </footer>
@@ -962,10 +933,10 @@
 <script>
   document.addEventListener('DOMContentLoaded', function () {
 
-    // ── FIX: Dynamic footer year
+    // Dynamic footer year
     document.getElementById('footerYear').textContent = new Date().getFullYear();
 
-    // ── FIX: Hero image fallback — safe JS approach, no broken inline onerror
+    // Hero image fallback
     var heroPhoto = document.getElementById('heroPhoto');
     if (heroPhoto) {
       heroPhoto.addEventListener('error', function () {
@@ -976,7 +947,7 @@
       });
     }
 
-    // ── FIX: Hamburger toggle for mobile
+    // Hamburger toggle
     var navToggle = document.getElementById('navToggle');
     var navLinks  = document.getElementById('navLinks');
     if (navToggle && navLinks) {
@@ -985,7 +956,6 @@
         navToggle.classList.toggle('open', isOpen);
         navToggle.setAttribute('aria-expanded', isOpen ? 'true' : 'false');
       });
-      // Close nav when a link is clicked (mobile UX)
       navLinks.querySelectorAll('a').forEach(function (link) {
         link.addEventListener('click', function () {
           navLinks.classList.remove('open');
@@ -995,7 +965,7 @@
       });
     }
 
-    // ── FIX: Smooth scroll JS fallback for Safari
+    // Smooth scroll fallback for Safari
     document.querySelectorAll('a[href^="#"]').forEach(function (anchor) {
       anchor.addEventListener('click', function (e) {
         var target = document.querySelector(this.getAttribute('href'));
@@ -1006,20 +976,17 @@
       });
     });
 
-    // ── Scroll reveal
+    // Scroll reveal
     var observer = new IntersectionObserver(function (entries) {
       entries.forEach(function (e) {
-        if (e.isIntersecting) {
-          e.target.classList.add('visible');
-        }
+        if (e.isIntersecting) { e.target.classList.add('visible'); }
       });
     }, { threshold: 0.1 });
     document.querySelectorAll('.reveal').forEach(function (el) {
       observer.observe(el);
     });
 
-    // ── FIX: Publication filter — attached via addEventListener, not inline onclick
-    //    Also fixed substring match bug with word-boundary check
+    // Publication filter
     var pubBtns = document.querySelectorAll('.pub-btn');
     pubBtns.forEach(function (btn) {
       btn.addEventListener('click', function () {
@@ -1030,7 +997,6 @@
           if (filter === 'all') {
             item.classList.remove('hidden');
           } else {
-            // FIX: split on spaces to avoid partial substring match (e.g. "ml" inside "html")
             var cats = (item.dataset.cat || '').split(/\s+/);
             item.classList.toggle('hidden', !cats.includes(filter));
           }
